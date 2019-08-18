@@ -1,12 +1,21 @@
-import React from 'react';
-import ReactDOM from 'react-dom';
-import './index.css';
-import App from './App';
-import * as serviceWorker from './serviceWorker';
+import React from 'react'
+import ReactDOM from 'react-dom'
+import './index.css'
+import { Route, Link, BrowserRouter as Router } from 'react-router-dom'
+import App from './App'
+import Users from './users'
+// import Contact from './contact'
 
-ReactDOM.render(<App />, document.getElementById('root'));
+var myOtherUrl =     encodeURIComponent("https://oa.wuminmin.top/");
 
-// If you want your app to work offline and load faster, you can change
-// unregister() to register() below. Note this comes with some pitfalls.
-// Learn more about service workers: https://bit.ly/CRA-PWA
-serviceWorker.unregister();
+const routing = (
+  <Router>
+    <div>
+      <Route path="/" component={App} />
+      <Route path='/zc.html' component={() => { window.location = 'https://open.weixin.qq.com/connect/oauth2/authorize?appid=wx7cafde0331f7a72b&redirect_uri='+myOtherUrl+'&response_type=code&scope=snsapi_userinfo&state=123#wechat_redirect'; return null;} }/>
+      {/* <Route path="/zc.html" component={Users} /> */}
+      {/* <Route path="/contact" component={Contact} /> */}
+    </div>
+  </Router>
+)
+ReactDOM.render(routing, document.getElementById('root'))
