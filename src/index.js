@@ -6,12 +6,12 @@ import App from './App'
 import Users from './users'
 // import Contact from './contact'
 
-var myOtherUrl =     encodeURIComponent("https://oa.wuminmin.top/");
+var myOtherUrl =     encodeURIComponent("https://oa.wuminmin.top/a/");
 
 const routing = (
   <Router>
     <div>
-      <Route path="/" component={App} />
+      <Route path="/a" component={App} />
       <Route path='/zc.html' component={() => { window.location = 'https://open.weixin.qq.com/connect/oauth2/authorize?appid=wx7cafde0331f7a72b&redirect_uri='+myOtherUrl+'&response_type=code&scope=snsapi_userinfo&state=123#wechat_redirect'; return null;} }/>
       {/* <Route path="/zc.html" component={Users} /> */}
       {/* <Route path="/contact" component={Contact} /> */}
