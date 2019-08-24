@@ -1,4 +1,5 @@
 import React from 'react'
+import axios from 'axios'
 class App extends React.Component {
   state = {
     c: 'c',
@@ -20,7 +21,25 @@ class App extends React.Component {
         s: s
       }
     )
-    // fetch(`https://api.twitter.com/user/${handle}`)
+    let self = this;
+    axios.get('http://localhost:8000/wow/', {
+      params: {
+        "code": params.get('code'),
+        "state": params.get('state')
+      }
+    })
+      .then(function (response) {
+        console.log(response);
+        var openid = response.openid;
+        self.setState({
+          s: openid
+        });
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
+
+    // fetch(`http://127.0.0.1:8000/wow_login`)
     //   .then((user) => {
     //     this.setState(() => ({ user }))
     //   })
