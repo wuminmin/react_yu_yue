@@ -8,6 +8,8 @@ import SimpleList from './List'
 import MyCamare from './MyCamare'
 import MyYunZhuJi from './MyYunZhuJi'
 import Zhuce from './Zhuce'
+import UserInfo from './UserInfo'
+import YuYue from './YuYue'
 
 var myOtherUrl =  encodeURIComponent("https://oa.wuminmin.top/a/");
 
@@ -22,6 +24,8 @@ const routing = (
       <Route path="/myCamare" component={MyCamare} />
       <Route path="/gly.html" component={MyYunZhuJi} />
       <Route path="/zhuce" component={Zhuce} />
+      <Route path="/userInfo" component={UserInfo} />
+      <Route path="/yuyue" component={YuYue} />
     </div>
   </Router>
 )

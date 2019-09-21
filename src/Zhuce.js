@@ -34,9 +34,22 @@ class Zhuce extends React.Component {
             手机号:'',
             验证码:'',
             身份证号码:'',
+            短信提示:'',
+            access_token:'',
+            refresh_token:'',
         };
     }
   componentDidMount() {
+    console.log(this.props)
+    const search = this.props.location.search; // could be '?foo=bar'
+    const params = new URLSearchParams(search);
+    const access_token = params.get('access_token'); // bar
+    const refresh_token = params.get('refresh_token'); // bar
+    console.log(access_token,refresh_token)
+    this.setState({
+        access_token:access_token,
+        refresh_token:refresh_token,
+    })
   }
 
   sendSms= (e) =>  {
@@ -48,11 +61,9 @@ class Zhuce extends React.Component {
       }
     })
       .then(function (response) {
-        console.log(response);
-        // var openid = response.openid;
-        // self.setState({
-        //   s: openid
-        // });
+        self.setState({
+            短信提示: response.data
+        });
       })
       .catch(function (error) {
         console.log(error);
@@ -74,10 +85,31 @@ class Zhuce extends React.Component {
   handleChangeIdCard= (e) =>  {
     this.setState({身份证号码: e.target.value});
   }
-
   zhuCe= (e) =>  {
-    console.log(e);
-    console.log(this.state.姓名);
+    let self = this
+    var myOtherUrl =  encodeURIComponent("https://wx.wuminmin.top/dzzwzx/zhuce")
+    var myState = {
+        姓名:self.state.姓名,
+        手机号:self.state.手机号,
+        验证码:self.state.验证码,
+        身份证号码:self.state.身份证号码,
+        短信提示:self.state.短信提示,
+        access_token:self.state.access_token,
+        refresh_token:self.state.refresh_token,
+    }
+    axios.get('https://wx.wuminmin.top/dzzwzx/zhuce', {
+      params: {
+        "myState": myState,
+      }
+    })
+      .then(function (response) {
+        self.setState({
+            短信提示: response.data
+        });
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
   }
 
   render() {
@@ -105,6 +137,7 @@ class Zhuce extends React.Component {
                         <Button type="vcode"  onClick={this.sendSms} >发送</Button>
                     </CellFooter>
                 </FormCell>
+              
                 <FormCell vcode>
                     <CellHeader>
                         <Label>验证码</Label>
@@ -119,6 +152,11 @@ class Zhuce extends React.Component {
                     </CellHeader>
                     <CellBody>
                         <Input type="txt" value={this.state.身份证} onChange={this.handleChangeIdCard}/>
+                    </CellBody>
+                </FormCell>
+                <FormCell warn>
+                    <CellBody>
+                    <Label>{this.state.短信提示}</Label>
                     </CellBody>
                 </FormCell>
             </Form>
