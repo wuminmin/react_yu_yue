@@ -32,7 +32,12 @@ import { ButtonArea,
 class App extends React.Component {
   state = {
     c: 'c',
-    s: 's'
+    s: 's',
+    姓名:'姓名',
+    手机号:'手机号',
+    验证码:'验证码',
+    身份证:'身份证',
+
   }
   componentDidMount() {
 
@@ -67,20 +72,21 @@ class App extends React.Component {
       .catch(function (error) {
         console.log(error);
       });
-
-    // fetch(`http://127.0.0.1:8000/wow_login`)
-    //   .then((user) => {
-    //     this.setState(() => ({ user }))
-    //   })
   }
+
   render() {
+
+    function sendSms(e){
+      console.log(this.state.手机号)
+    }
+
     return (
       <div>
         <CellsTitle>实名注册</CellsTitle>
             <Form>
                 <FormCell>
                     <CellHeader>
-                        <Label>姓名</Label>
+                        <Label>{this.state.姓名}</Label>
                     </CellHeader>
                     <CellBody>
                         <Input type="txt" placeholder="输入姓名"/>
@@ -88,18 +94,18 @@ class App extends React.Component {
                 </FormCell>
                 <FormCell vcode>
                     <CellHeader>
-                        <Label>手机号</Label>
+                        <Label>{this.state.手机号}</Label>
                     </CellHeader>
                     <CellBody>
                         <Input type="tel" placeholder="输入手机号"/>
                     </CellBody>
                     <CellFooter>
-                        <Button type="vcode">发送</Button>
+                        <Button type="vcode"  onClick={sendSms} >发送</Button>
                     </CellFooter>
                 </FormCell>
                 <FormCell vcode>
                     <CellHeader>
-                        <Label>验证码</Label>
+                        <Label>{this.state.验证码}</Label>
                     </CellHeader>
                     <CellBody>
                         <Input type="number" placeholder="验证码"/>
@@ -107,7 +113,7 @@ class App extends React.Component {
                 </FormCell>
                 <FormCell>
                     <CellHeader>
-                        <Label>身份证</Label>
+                        <Label>{this.state.身份证}</Label>
                     </CellHeader>
                     <CellBody>
                         <Input type="txt" placeholder="输入身份证"/>
