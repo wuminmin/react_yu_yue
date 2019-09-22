@@ -53,84 +53,20 @@ class YuYue extends React.Component {
             });
     }
 
-    sendSms = (e) => {
-        let self = this;
-        axios.get('https://wx.wuminmin.top/dzzwzx/xia_zai_bu_men', {
-            params: {
-            }
-        })
-            .then(function (response) {
-                self.setState({
-                    部门列表: response.data
-                });
-                console.log(self.state.部门列表);
-
-            })
-            .catch(function (error) {
-                console.log(error);
-            });
-
-    }
-
-    handleChangeName = (e) => {
-        this.setState({ 姓名: e.target.value });
-    }
-
-    handleChangePhone = (e) => {
-        this.setState({ 手机号: e.target.value });
-    }
-
-    handleChangeSmsCode = (e) => {
-        this.setState({ 验证码: e.target.value });
-    }
-
-    handleChangeIdCard = (e) => {
-        this.setState({ 身份证号码: e.target.value });
-    }
-    zhuCe = (e) => {
-        let self = this
-        var myState = {
-            姓名: self.state.姓名,
-            手机号: self.state.手机号,
-            验证码: self.state.验证码,
-            身份证号码: self.state.身份证号码,
-            短信提示: self.state.短信提示,
-            access_token: self.state.access_token,
-            refresh_token: self.state.refresh_token,
-        }
-        axios.get('https://wx.wuminmin.top/dzzwzx/zhuce', {
-            params: {
-                "myState": myState,
-            }
-        })
-            .then(function (response) {
-                self.setState({
-                    短信提示: response.data
-                });
-            })
-            .catch(function (error) {
-                console.log(error);
-            });
-    }
-
     render() {
-
-        // const data = Array(9).fill({
-        //     icon: <img src={iconSrc} />,
-        //     label: '办事',
-        //     href: 'javascript:;'
-        // })
         const data = this.state.部门列表.map((item) => {
+            console.log('跳转预约申请access_token------------',this.state.access_token)
+            console.log('跳转预约申请refresh_token------------',this.state.refresh_token)
             return {
-                icon: <img src={'https://wx.wuminmin.top/dzzwzx/icon?id='+item.部门编号} />,
+                icon: <img src={'https://wx.wuminmin.top/dzzwzx/icon?id='+item.部门编号}  />,
                 label: item.部门名称,
-                href: 'javascript:;'
+                href: 'yuyue_bu_men?refresh_token='+this.state.refresh_token+'&access_token='+this.state.access_token+'&手机号='+this.state.手机号+'&姓名='+this.state.姓名+'&身份证号码='+this.state.身份证号码+'&部门编号='+item.部门编号+'&部门名称='+item.部门名称
             }
         })
 
         return (
             <div>
-                <Page className="grid" title="办事" subTitle="请选择一个部门">
+                <Page className="grid" title={this.state.姓名} subTitle={this.state.身份证号码}>
                     <Grids data={data} />
                 </Page>
 
