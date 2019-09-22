@@ -17,6 +17,7 @@ class YuYue extends React.Component {
             短信提示: '',
             access_token: '',
             refresh_token: '',
+            部门列表: [],
         };
     }
     componentDidMount() {
@@ -35,25 +36,40 @@ class YuYue extends React.Component {
             手机号: 手机号,
             姓名: 姓名,
             身份证号码: 身份证号码,
-        })
-    }
-
-    sendSms = (e) => {
-        console.log(this.state.手机号);
+        });
         let self = this;
-        axios.get('https://wx.wuminmin.top/dzzwzx/sendSms', {
+        axios.get('https://wx.wuminmin.top/dzzwzx/xia_zai_bu_men', {
             params: {
-                "手机号": self.state.手机号,
             }
         })
             .then(function (response) {
                 self.setState({
-                    短信提示: response.data
+                    部门列表: response.data
                 });
+                console.log(self.state.部门列表);
             })
             .catch(function (error) {
                 console.log(error);
             });
+    }
+
+    sendSms = (e) => {
+        let self = this;
+        axios.get('https://wx.wuminmin.top/dzzwzx/xia_zai_bu_men', {
+            params: {
+            }
+        })
+            .then(function (response) {
+                self.setState({
+                    部门列表: response.data
+                });
+                console.log(self.state.部门列表);
+
+            })
+            .catch(function (error) {
+                console.log(error);
+            });
+
     }
 
     handleChangeName = (e) => {
@@ -99,10 +115,17 @@ class YuYue extends React.Component {
 
     render() {
 
-        const data = Array(9).fill({
-            icon: <img src={iconSrc} />,
-            label: '办事',
-            href: 'javascript:;'
+        // const data = Array(9).fill({
+        //     icon: <img src={iconSrc} />,
+        //     label: '办事',
+        //     href: 'javascript:;'
+        // })
+        const data = this.state.部门列表.map((item) => {
+            return {
+                icon: <img src={'https://wx.wuminmin.top/dzzwzx/icon?id='+item.部门编号} />,
+                label: item.部门名称,
+                href: 'javascript:;'
+            }
         })
 
         return (
