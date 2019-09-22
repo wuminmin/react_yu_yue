@@ -120,7 +120,7 @@ class App extends React.Component {
                     </CellBody>
                 </FormCell>
             </Form>
-            <CellsTips>东至政务中心</CellsTips>
+            <CellsTips>微信预约系统</CellsTips>
             <Button>注册</Button>
       </div>
     )

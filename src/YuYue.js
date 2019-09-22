@@ -4,7 +4,7 @@ import 'weui';
 import 'react-weui/build/packages/react-weui.css';
 import Page from './page';
 import iconSrc from './favicon.ico';
-import {Button, Grids, Cell, CellHeader, Badge, CellBody,CellsTitle, Icon, PreviewHeader, PreviewFooter, PreviewBody, PreviewItem, PreviewButton } from 'react-weui';
+import { Button, Grids, Cell, CellHeader, Badge, CellBody, CellsTitle, Icon, PreviewHeader, PreviewFooter, PreviewBody, PreviewItem, PreviewButton } from 'react-weui';
 
 class IconBox extends Component {
     //接收父组件传递过来的item
@@ -22,7 +22,7 @@ class IconBox extends Component {
             <div>
                 <Cell>
                     <CellHeader style={{ position: 'relative', marginRight: '10px' }}>
-                        <img src={'https://wx.wuminmin.top/dzzwzx/icon?id='+this.props.item.部门编号} style={{ width: '50px', display: 'block' }} />
+                        <img src={'https://wx.wuminmin.top/dzzwzx/icon?id=' + this.props.item.部门编号} style={{ width: '50px', display: 'block' }} />
                         {/* <Badge preset="header">1</Badge> */}
                     </CellHeader>
                     <CellBody>
@@ -131,7 +131,10 @@ class YuYue extends React.Component {
         })
         return (
             <div>
-                <Page className="grid" title={this.state.姓名} subTitle={this.state.身份证号码}>
+                <Page>
+                    <Button type="default">当前用户：{this.state.姓名}</Button>
+                    <p>用户手机号：{this.state.手机号}</p>
+                    <p>用户身份证号码：{this.state.身份证号码}</p>
                     <Grids data={data} />
                     <IconBoxList user={this.state.预约申请列表}></IconBoxList>
                 </Page>

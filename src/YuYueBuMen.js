@@ -176,7 +176,7 @@ class YuYueBuMen extends React.Component {
                             </FormCell>
                         </Form>
                     </Form>
-                    <CellsTips>东至政务中心</CellsTips>
+                    <CellsTips>微信预约系统</CellsTips>
                     <FormCell warn>
                         <CellBody>
                             <Label>{this.state.短信提示}</Label>

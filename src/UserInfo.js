@@ -3,6 +3,7 @@ import axios from 'axios'
 import 'weui';
 import 'react-weui/build/packages/react-weui.css';
 import { Preview, PreviewHeader, PreviewFooter, PreviewBody, PreviewItem, PreviewButton } from 'react-weui';
+import Page from './page';
 
 class UserInfo extends React.Component {
     constructor(props) {
@@ -19,20 +20,20 @@ class UserInfo extends React.Component {
     }
     componentDidMount() {
         console.log(this.props)
-        const search = this.props.location.search; 
+        const search = this.props.location.search;
         const params = new URLSearchParams(search);
-        const access_token = params.get('access_token'); 
-        const refresh_token = params.get('refresh_token'); 
-        const 手机号 = params.get('手机号'); 
-        const 姓名 = params.get('姓名'); 
-        const 身份证号码 = params.get('身份证号码'); 
+        const access_token = params.get('access_token');
+        const refresh_token = params.get('refresh_token');
+        const 手机号 = params.get('手机号');
+        const 姓名 = params.get('姓名');
+        const 身份证号码 = params.get('身份证号码');
         console.log(access_token, refresh_token)
         this.setState({
             access_token: access_token,
             refresh_token: refresh_token,
-            手机号:手机号,
-            姓名:姓名,
-            身份证号码:身份证号码,
+            手机号: 手机号,
+            姓名: 姓名,
+            身份证号码: 身份证号码,
         })
     }
 
@@ -99,20 +100,21 @@ class UserInfo extends React.Component {
 
         return (
             <div>
-                <Preview>
-                    <PreviewHeader>
-                        <PreviewItem label="姓名" value={this.state.姓名} />
-                    </PreviewHeader>
-                    <PreviewBody>
-                        <PreviewItem label="手机号" value={this.state.手机号} />
-                        <PreviewItem label="身份证号码" value={this.state.身份证号码} />
-                        {/* <PreviewItem label="Details" value="Cras sit amet nibh libero, in gravida nulla. Nulla vel metus scelerisque ante sollicitudin commodo. " /> */}
-                    </PreviewBody>
-                    <PreviewFooter>
-                        <PreviewButton primary>修改信息</PreviewButton>
-                    </PreviewFooter>
-                </Preview>
-                
+                <Page>
+                    <Preview>
+                        <PreviewHeader>
+                            <PreviewItem label="姓名" value={this.state.姓名} />
+                        </PreviewHeader>
+                        <PreviewBody>
+                            <PreviewItem label="手机号" value={this.state.手机号} />
+                            <PreviewItem label="身份证号码" value={this.state.身份证号码} />
+                            {/* <PreviewItem label="Details" value="Cras sit amet nibh libero, in gravida nulla. Nulla vel metus scelerisque ante sollicitudin commodo. " /> */}
+                        </PreviewBody>
+                        <PreviewFooter>
+                            <PreviewButton primary>修改信息</PreviewButton>
+                        </PreviewFooter>
+                    </Preview>
+                </Page>
             </div>
         )
     }

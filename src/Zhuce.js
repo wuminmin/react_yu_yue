@@ -160,7 +160,7 @@ class Zhuce extends React.Component {
                     </CellBody>
                 </FormCell>
             </Form>
-            <CellsTips>东至政务中心</CellsTips>
+            <CellsTips>微信预约系统</CellsTips>
             <Button  onClick={this.zhuCe}>注册</Button>
       </div>
     )
