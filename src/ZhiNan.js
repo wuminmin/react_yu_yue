@@ -6,54 +6,6 @@ import Page from './page';
 import iconSrc from './favicon.ico';
 import { Button, Grids, Cell, CellHeader, Badge, CellBody, CellsTitle, Icon, PreviewHeader, PreviewFooter, PreviewBody, PreviewItem, PreviewButton } from 'react-weui';
 
-class IconBox extends Component {
-    //接收父组件传递过来的item
-    render() {
-        return (
-            // <div className="icon-box">
-            //     <Icon size="large" value={'https://wx.wuminmin.top/dzzwzx/icon?id='+this.props.item.部门编号} />
-            //     <div className="icon-box__ctn">
-            //         <h3 className="icon-box__title">{this.props.item.部门名称}</h3>
-            //         <p className="icon-box__desc">{this.props.item.办事内容}</p>
-            //         <p className="icon-box__desc">{this.props.item.办事日期}</p>
-            //         <p className="icon-box__desc">{this.props.item.办事区间}</p>
-            //     </div>
-            // </div>
-            <div>
-                <Cell>
-                    <CellHeader style={{ position: 'relative', marginRight: '10px' }}>
-                        <img src={'https://wx.wuminmin.top/dzzwzx/icon?id=' + this.props.item.部门编号} style={{ width: '50px', display: 'block' }} />
-                        {/* <Badge preset="header">1</Badge> */}
-                    </CellHeader>
-                    <CellBody>
-                        <p>{this.props.item.部门名称}</p>
-                        <p style={{ fontSize: '13px', color: '#888888' }}>{this.props.item.办事日期} {this.props.item.办事区间} {this.props.item.办事内容}    </p>
-                        {/* <Button type="warn" size="small">Mini</Button>  */}
-                    </CellBody>
-                </Cell>
-            </div>
-        )
-    }
-}
-
-class IconBoxList extends Component {
-    render() {
-        return (
-            <div>
-                <CellsTitle>我的预约</CellsTitle>
-
-                {
-                    this.props.user.map((item, index) => {
-                        return (
-                            <IconBox item={item} key={index}></IconBox>
-                        )
-                    })
-                }
-            </div>
-        )
-    }
-}
-
 class ZhiNan extends React.Component {
     constructor(props) {
         super(props);
@@ -106,18 +58,6 @@ class ZhiNan extends React.Component {
             .catch(function (error) {
                 console.log(error);
             });
-        axios.get('https://wx.wuminmin.top/dzzwzx/xia_zai_yu_yue_list', {
-            params: { myState: myState }
-        })
-            .then(function (response) {
-                self.setState({
-                    预约申请列表: response.data
-                });
-                console.log('预约申请列表', self.state.预约申请列表);
-            })
-            .catch(function (error) {
-                console.log(error);
-            });
     }
     render() {
         const data = this.state.部门列表.map((item) => {
@@ -126,7 +66,7 @@ class ZhiNan extends React.Component {
             return {
                 icon: <img src={'https://wx.wuminmin.top/dzzwzx/icon?id=' + item.部门编号} />,
                 label: item.部门名称,
-                href: 'yuyue_bu_men?refresh_token=' + this.state.refresh_token + '&access_token=' + this.state.access_token + '&手机号=' + this.state.手机号 + '&姓名=' + this.state.姓名 + '&身份证号码=' + this.state.身份证号码 + '&部门编号=' + item.部门编号 + '&部门名称=' + item.部门名称
+                href: 'zhinan_ban_shi?refresh_token=' + this.state.refresh_token + '&access_token=' + this.state.access_token + '&手机号=' + this.state.手机号 + '&姓名=' + this.state.姓名 + '&身份证号码=' + this.state.身份证号码 + '&部门编号=' + item.部门编号 + '&部门名称=' + item.部门名称
             }
         })
         return (
@@ -135,7 +75,6 @@ class ZhiNan extends React.Component {
                     <Button type="default">办事指南</Button>
                     <p>点击图标可查询具体事项</p>
                     <Grids data={data} />
-                    <IconBoxList user={this.state.预约申请列表}></IconBoxList>
                 </Page>
             </div>
         )
