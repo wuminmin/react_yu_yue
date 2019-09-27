@@ -1,90 +1,56 @@
-import React from 'react'
+import React, { Component } from 'react'
 import axios from 'axios'
-import ReactDOM from 'react-dom';
-// import { Button } from 'react-weui';
-//import styles
-import 'weui';
-import 'react-weui/build/packages/react-weui.css';
-import {
-    ButtonArea,
-    Button,
-    CellsTitle,
-    CellsTips,
-    Cell,
-    CellHeader,
-    CellBody,
-    CellFooter,
-    Form,
-    FormCell,
-    Icon,
-    Input,
-    Label,
-    TextArea,
-    Switch,
-    Radio,
-    Checkbox,
-    Select,
-    VCode,
-    Agreement,
-    Toptips
-} from 'react-weui';
 
+export default class Timer extends Component {
 
-class MyCamare extends React.Component {
-    state = {
-        c: 'c',
-        s: 's',
-        姓名: '姓名',
-        手机号: '手机号',
-        验证码: '验证码',
-        身份证: '身份证',
-
-    }
-    componentDidMount() {
-
-        console.log(this.props)
-        const search = this.props.location.search; // could be '?foo=bar'
-        const params = new URLSearchParams(search);
-        const c = params.get('code'); // bar
-        const s = params.get('state'); // bar
-        // const c = this.props.location.query.code
-        // const s = this.props.location.query.state
-        console.log(c, s)
-        this.setState(
-            {
-                c: c,
-                s: s
-            }
-        )
-        let self = this;
-        axios.get('http://localhost:8000/wow/', {
-            params: {
-                "code": params.get('code'),
-                "state": params.get('state')
-            }
-        })
-            .then(function (response) {
-                console.log(response);
-                var openid = response.openid;
-                self.setState({
-                    s: openid
-                });
-            })
-            .catch(function (error) {
-                console.log(error);
-            });
-    }
-    render() {
-        function sendSms(e) {
-            console.log(this.state.手机号)
+    constructor(props) {
+        super(props)
+        this.state = {
+            bool: false,
+            year: '',
+            month: '',
+            days: '0',
+            hours: '00',
+            minutes: '00',
+            seconds: '00'
         }
+    }
+
+    componentDidMount() {
+        this.start()
+    }
+
+    async start() {
+        let days = new Date().getDate();
+        let month = new Date().getMonth();
+        let year = new Date().getFullYear();
+        let hours = new Date().getHours();
+        let minutes = new Date().getMinutes();
+        let seconds = new Date().getSeconds();
+        this.setState({
+            year: year,
+            month: month,
+            days: days,
+            hours:hours,
+            minutes:minutes,
+            seconds:seconds,
+        });
+        window.setTimeout( e => this.start(), 1000)
+    }
+
+
+    render() {
+        let { year, month, bool, days, hours, minutes, seconds } = this.state
         return (
             <div>
-                <video id="video" width="640" height="480" autoplay></video>
-                <button id="snap">Snap Photo</button>
-                <canvas id="canvas" width="640" height="480"></canvas>
+                {
+                    bool ?
+                        <div>当前日期</div> :
+                        <div>
+                           {year}  年  {month} 月  {days} 日 {hours} : {minutes} : {seconds}
+                        </div>
+                }
             </div>
         )
     }
 }
-export default MyCamare

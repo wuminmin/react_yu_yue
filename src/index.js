@@ -11,6 +11,7 @@ import Zhuce from './Zhuce'
 import UserInfo from './UserInfo'
 import YuYue from './YuYue'
 import YuYueBuMen from './YuYueBuMen'
+import ZhiNan from './ZhiNan'
 
 var myOtherUrl =  encodeURIComponent("https://oa.wuminmin.top/a/");
 
@@ -21,13 +22,13 @@ const routing = (
       <Route path='/zc.html' component={() => { window.location = 'https://open.weixin.qq.com/connect/oauth2/authorize?appid=wx7cafde0331f7a72b&redirect_uri='+myOtherUrl+'&response_type=code&scope=snsapi_userinfo&state=123#wechat_redirect'; return null;} }/>
       {/* <Route path="/zc.html" component={Users} /> */}
       <Route path="/contact" component={SimpleList} />
-
       <Route path="/myCamare" component={MyCamare} />
       <Route path="/gly.html" component={MyYunZhuJi} />
       <Route path="/zhuce" component={Zhuce} />
       <Route path="/userInfo" component={UserInfo} />
       <Route path="/yuyue" component={YuYue} />
       <Route path="/yuyue_bu_men" component={YuYueBuMen} />
+      <Route path="/zhinan" component={ZhiNan} />
     </div>
   </Router>
 )

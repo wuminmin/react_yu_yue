@@ -6,6 +6,7 @@ import Page from './page';
 import iconSrc from './favicon.ico';
 import vcodeSrc from './favicon.ico';
 import avatarSrc from './favicon.ico';
+import 'moment'
 import {
     ButtonArea,
     Button,
@@ -33,6 +34,7 @@ import {
 class YuYueBuMen extends React.Component {
     constructor(props) {
         super(props);
+        var moment = require('moment');
         this.state = {
             姓名: '',
             手机号: '',
@@ -45,9 +47,9 @@ class YuYueBuMen extends React.Component {
             部门编号: '',
             部门名称: '',
             办事内容: '',
+            办事内容列表: [],
             办事日期: '',
-            办事区间: '',
-            showToptips: true,
+            办事区间: '上午',
         };
     }
     componentDidMount() {
@@ -72,42 +74,34 @@ class YuYueBuMen extends React.Component {
             部门名称: 部门名称,
         });
         let self = this;
-        axios.get('https://wx.wuminmin.top/dzzwzx/xia_zai_bu_men', {
+        axios.get('https://wx.wuminmin.top/dzzwzx/xia_zai_ban_shi', {
             params: {
+                部门编号: 部门编号,
+                部门名称: 部门名称
             }
         })
             .then(function (response) {
                 self.setState({
-                    部门列表: response.data
+                    办事内容列表: response.data
                 });
-                console.log(self.state.部门列表);
+                console.log(self.state.办事内容列表);
             })
             .catch(function (error) {
                 console.log(error);
             });
-    }
-
-    sendSms = (e) => {
-        let self = this;
-        axios.get('https://wx.wuminmin.top/dzzwzx/xia_zai_bu_men', {
-            params: {
-            }
-        })
-            .then(function (response) {
-                self.setState({
-                    部门列表: response.data
-                });
-                console.log(self.state.部门列表);
-
-            })
-            .catch(function (error) {
-                console.log(error);
-            });
-
     }
 
     handleChangeBanShiNeiRong = (e) => {
-        this.setState({ 办事内容: e.target.value });
+        console.log('e.target.value',e.target.value)
+        let self = this;
+        self.state.办事内容列表.map((numbers) => {
+            console.log('numbers.value',numbers.value)
+                if (numbers.value === e.target.value) {
+                    console.log('numbers.value',numbers.value)
+                    console.log('numbers.label',numbers.label)
+                    self.setState({ 办事内容: numbers.label })
+                }
+            } );
     }
 
     handleChangeBanShiRiQi = (e) => {
@@ -130,29 +124,27 @@ class YuYueBuMen extends React.Component {
     }
 
     render() {
-        const data = this.state.部门列表.map((item) => {
-
-            return {
-                icon: <img src={'https://wx.wuminmin.top/dzzwzx/icon?id=' + item.部门编号} />,
-                label: item.部门名称,
-                href: 'dzzwz'
-            }
-        });
-
         return (
             <div>
                 <Page className="input" title={this.state.部门名称} subTitle={this.state.姓名} >
                     <CellsTitle>预约办事</CellsTitle>
                     <Form>
-                        <FormCell>
+                        {/* <FormCell>
                             <CellHeader>
                                 <Label>办事内容：</Label>
                             </CellHeader>
                             <CellBody>
-                                <Input type="text" onChange={this.handleChangeBanShiNeiRong} />
+                                <view type="text" value />
+                            </CellBody>
+                        </FormCell> */}
+                        <FormCell select selectPos="after">
+                            <CellHeader>
+                                <Label>办事内容：</Label>
+                            </CellHeader>
+                            <CellBody>
+                                <Select data={this.state.办事内容列表} onChange={this.handleChangeBanShiNeiRong} />
                             </CellBody>
                         </FormCell>
-
                         <FormCell>
                             <CellHeader>
                                 <Label>预约日期：</Label>
@@ -163,24 +155,46 @@ class YuYueBuMen extends React.Component {
                         </FormCell>
                         <Form radio>
                             <FormCell radio>
-                                <CellBody> 上午</CellBody>
+                                <CellBody>9:00-10:100</CellBody>
                                 <CellFooter>
-                                    <Radio name="radio1" value="上午" defaultChecked onClick={this.handleChangeBanShiQuJian} />
+                                    <Radio name="radio1" value="9:00-10:100" defaultChecked onClick={this.handleChangeBanShiQuJian} />
                                 </CellFooter>
                             </FormCell>
                             <FormCell radio>
-                                <CellBody>下午</CellBody>
+                                <CellBody>10:00-11:00</CellBody>
                                 <CellFooter>
-                                    <Radio name="radio1" value="下午" onClick={this.handleChangeBanShiQuJian} />
+                                    <Radio name="radio1" value="10:00-11:00" onClick={this.handleChangeBanShiQuJian} />
+                                </CellFooter>
+                            </FormCell>
+                            <FormCell radio>
+                                <CellBody>11:00-12:00</CellBody>
+                                <CellFooter>
+                                    <Radio name="radio1" value="11:00-12:00" onClick={this.handleChangeBanShiQuJian} />
+                                </CellFooter>
+                            </FormCell>
+                            <FormCell radio>
+                                <CellBody>14:00-15:00</CellBody>
+                                <CellFooter>
+                                    <Radio name="radio1" value="14:00-15:00" onClick={this.handleChangeBanShiQuJian} />
+                                </CellFooter>
+                            </FormCell>
+                            <FormCell radio>
+                                <CellBody>15:00-16:00</CellBody>
+                                <CellFooter>
+                                    <Radio name="radio1" value="15:00-16:00" onClick={this.handleChangeBanShiQuJian} />
+                                </CellFooter>
+                            </FormCell>
+                            <FormCell radio>
+                                <CellBody>16:00-17:30</CellBody>
+                                <CellFooter>
+                                    <Radio name="radio1" value="16:00-17:30" onClick={this.handleChangeBanShiQuJian} />
                                 </CellFooter>
                             </FormCell>
                         </Form>
                     </Form>
                     <CellsTips>微信预约系统</CellsTips>
                     <FormCell warn>
-                        <CellBody>
-                            <Label>{this.state.短信提示}</Label>
-                        </CellBody>
+                        <p>{this.state.短信提示}</p>
                     </FormCell>
                     <ButtonArea>
                         <Button
@@ -211,7 +225,7 @@ class YuYueBuMen extends React.Component {
                                             短信提示: response.data
                                         });
                                         console.log(response)
-                                        window.setTimeout(e=> self.setState({短信提示: ''}), 2000)
+                                        window.setTimeout(e => self.setState({ 短信提示: '' }), 3000)
 
                                     })
                                     .catch(function (error) {
@@ -223,7 +237,6 @@ class YuYueBuMen extends React.Component {
                         </Button>
                     </ButtonArea>
                 </Page>
-
             </div>
         )
     }
