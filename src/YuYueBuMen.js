@@ -49,7 +49,7 @@ class YuYueBuMen extends React.Component {
             办事内容: '',
             办事内容列表: [],
             办事日期: '',
-            办事区间: '上午',
+            办事区间: '',
         };
     }
     componentDidMount() {
@@ -82,9 +82,10 @@ class YuYueBuMen extends React.Component {
         })
             .then(function (response) {
                 self.setState({
+                    办事内容:response.data[0]['label'],
                     办事内容列表: response.data
                 });
-                console.log(self.state.办事内容列表);
+                console.log('self.state.办事内容列表',self.state.办事内容列表,'self.state.办事内容',self.state.办事内容);
             })
             .catch(function (error) {
                 console.log(error);
@@ -129,14 +130,6 @@ class YuYueBuMen extends React.Component {
                 <Page className="input" title={this.state.部门名称} subTitle={this.state.姓名} >
                     <CellsTitle>预约办事</CellsTitle>
                     <Form>
-                        {/* <FormCell>
-                            <CellHeader>
-                                <Label>办事内容：</Label>
-                            </CellHeader>
-                            <CellBody>
-                                <view type="text" value />
-                            </CellBody>
-                        </FormCell> */}
                         <FormCell select selectPos="after">
                             <CellHeader>
                                 <Label>办事内容：</Label>
@@ -157,7 +150,7 @@ class YuYueBuMen extends React.Component {
                             <FormCell radio>
                                 <CellBody>9:00-10:100</CellBody>
                                 <CellFooter>
-                                    <Radio name="radio1" value="9:00-10:100" defaultChecked onClick={this.handleChangeBanShiQuJian} />
+                                    <Radio name="radio1" value="9:00-10:100" onClick={this.handleChangeBanShiQuJian} />
                                 </CellFooter>
                             </FormCell>
                             <FormCell radio>
