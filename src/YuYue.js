@@ -7,18 +7,12 @@ import iconSrc from './favicon.ico';
 import { Button, Grids, Cell, CellHeader, Badge, CellBody, CellsTitle, Icon, PreviewHeader, PreviewFooter, PreviewBody, PreviewItem, PreviewButton } from 'react-weui';
 
 class IconBox extends Component {
+
+
+
     //接收父组件传递过来的item
     render() {
         return (
-            // <div className="icon-box">
-            //     <Icon size="large" value={'https://wx.wuminmin.top/dzzwzx/icon?id='+this.props.item.部门编号} />
-            //     <div className="icon-box__ctn">
-            //         <h3 className="icon-box__title">{this.props.item.部门名称}</h3>
-            //         <p className="icon-box__desc">{this.props.item.办事内容}</p>
-            //         <p className="icon-box__desc">{this.props.item.办事日期}</p>
-            //         <p className="icon-box__desc">{this.props.item.办事区间}</p>
-            //     </div>
-            // </div>
             <div>
                 <Cell>
                     <CellHeader style={{ position: 'relative', marginRight: '10px' }}>
@@ -28,7 +22,21 @@ class IconBox extends Component {
                     <CellBody>
                         <p>{this.props.item.部门名称}</p>
                         <p style={{ fontSize: '13px', color: '#888888' }}>{this.props.item.办事日期} {this.props.item.办事区间} {this.props.item.办事内容}    </p>
-                        {/* <Button type="warn" size="small">Mini</Button>  */}
+                        <Button type="warn" size="small" href={'/yuyue_qu_xiao?access_token='
+                            + this.props.item.access_token
+                            + '&refresh_token=' + this.props.item.refresh_token
+                            + '&oid=' + this.props.item.oid
+                            + '&access_token=' + this.props.item.access_token
+                            + '&手机号=' + this.props.item.手机号
+                            + '&姓名=' + this.props.item.姓名
+                            + '&身份证号码=' + this.props.item.身份证号码
+                            + '&部门编号=' + this.props.item.部门编号
+                            + '&部门名称=' + this.props.item.部门名称
+                            + '&办事日期=' + this.props.item.办事日期
+                            + '&办事日期=' + this.props.item.办事日期
+                            + '&办事区间=' + this.props.item.办事区间
+                            + '&办事内容=' + this.props.item.办事内容
+                        }>取消预约</Button>
                     </CellBody>
                 </Cell>
             </div>
@@ -37,15 +45,17 @@ class IconBox extends Component {
 }
 
 class IconBoxList extends Component {
+    clickFun(text) {
+        this.props.phandleButton(text)//这个地方把值传递给了props的事件当中
+    }
     render() {
         return (
             <div>
-                <CellsTitle>我的预约</CellsTitle>
-
+                <CellsTitle onClick={this.clickFun.bind(this, '123123123')} >我的预约</CellsTitle>
                 {
                     this.props.user.map((item, index) => {
                         return (
-                            <IconBox item={item} key={index}></IconBox>
+                            <IconBox item={item} key={index}  ></IconBox>
                         )
                     })
                 }
@@ -110,6 +120,7 @@ class YuYue extends React.Component {
             params: { myState: myState }
         })
             .then(function (response) {
+
                 self.setState({
                     预约申请列表: response.data
                 });
@@ -119,6 +130,10 @@ class YuYue extends React.Component {
                 console.log(error);
             });
     }
+    handleButton = (txt) => {
+        console.log('dd', txt)
+    }
+
     render() {
         const data = this.state.部门列表.map((item) => {
             console.log('跳转预约申请access_token------------', this.state.access_token)
@@ -136,7 +151,7 @@ class YuYue extends React.Component {
                     <p>用户手机号：{this.state.手机号}</p>
                     <p>用户身份证号码：{this.state.身份证号码}</p>
                     <Grids data={data} />
-                    <IconBoxList user={this.state.预约申请列表}></IconBoxList>
+                    <IconBoxList user={this.state.预约申请列表} phandleButton={this.handleButton.bind(this)} ></IconBoxList>
                 </Page>
             </div>
         )

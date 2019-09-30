@@ -31,7 +31,7 @@ import {
     Toptips
 } from 'react-weui';
 
-class YuYueBuMen extends React.Component {
+class YuYueQuXiao extends React.Component {
     constructor(props) {
         super(props);
         var moment = require('moment');
@@ -50,6 +50,7 @@ class YuYueBuMen extends React.Component {
             办事内容列表: [],
             办事日期: '',
             办事区间: '',
+            oid:'',
         };
     }
     componentDidMount() {
@@ -63,7 +64,10 @@ class YuYueBuMen extends React.Component {
         const 身份证号码 = params.get('身份证号码');
         const 部门编号 = params.get('部门编号');
         const 部门名称 = params.get('部门名称');
-        console.log(access_token, refresh_token)
+        const 办事日期 = params.get('办事日期');
+        const 办事区间 = params.get('办事区间');
+        const 办事内容 = params.get('办事内容');
+        const oid = params.get('oid');
         this.setState({
             access_token: access_token,
             refresh_token: refresh_token,
@@ -72,117 +76,54 @@ class YuYueBuMen extends React.Component {
             身份证号码: 身份证号码,
             部门编号: 部门编号,
             部门名称: 部门名称,
+            办事日期:办事日期,
+            办事区间:办事区间,
+            办事内容:办事内容,
+            oid:oid,
         });
-        let self = this;
-        axios.get('https://wx.wuminmin.top/dzzwzx/xia_zai_ban_shi', {
-            params: {
-                部门编号: 部门编号,
-                部门名称: 部门名称
-            }
-        })
-            .then(function (response) {
-                self.setState({
-                    办事内容:response.data[0]['label'],
-                    办事内容列表: response.data
-                });
-                console.log('self.state.办事内容列表',self.state.办事内容列表,'self.state.办事内容',self.state.办事内容);
-            })
-            .catch(function (error) {
-                console.log(error);
-            });
-    }
-
-    handleChangeBanShiNeiRong = (e) => {
-        console.log('e.target.value',e.target.value)
-        let self = this;
-        self.state.办事内容列表.map((numbers) => {
-            console.log('numbers.value',numbers.value)
-                if (numbers.value === e.target.value) {
-                    console.log('numbers.value',numbers.value)
-                    console.log('numbers.label',numbers.label)
-                    self.setState({ 办事内容: numbers.label })
-                }
-            } );
-    }
-
-    handleChangeBanShiRiQi = (e) => {
-        this.setState({ 办事日期: e.target.value });
-    }
-
-    handleChangeBanShiQuJian = (e) => {
-        this.setState({ 办事区间: e.target.value });
     }
 
     render() {
         return (
             <div>
                 <Page className="input" title={this.state.部门名称} subTitle={this.state.姓名} >
-                    <CellsTitle>预约办事</CellsTitle>
+                    <CellsTitle>取消预约</CellsTitle>
                     <Form>
                         <FormCell select selectPos="after">
                             <CellHeader>
                                 <Label>办事内容：</Label>
                             </CellHeader>
                             <CellBody>
-                                <Select data={this.state.办事内容列表} onChange={this.handleChangeBanShiNeiRong} />
+                                <Label>{this.state.办事内容}</Label>
                             </CellBody>
                         </FormCell>
                         <FormCell>
                             <CellHeader>
-                                <Label>预约日期：</Label>
+                                <Label>办事日期：</Label>
                             </CellHeader>
                             <CellBody>
-                                <Input type="date" defaultValue="" onChange={this.handleChangeBanShiRiQi} />
+                                <Label>{this.state.办事日期}</Label>
                             </CellBody>
                         </FormCell>
-                        <Form radio>
-                            <FormCell radio>
-                                <CellBody>9:00-10:00</CellBody>
-                                <CellFooter>
-                                    <Radio name="radio1" value="9:00-10:00" onClick={this.handleChangeBanShiQuJian} />
-                                </CellFooter>
-                            </FormCell>
-                            <FormCell radio>
-                                <CellBody>10:00-11:00</CellBody>
-                                <CellFooter>
-                                    <Radio name="radio1" value="10:00-11:00" onClick={this.handleChangeBanShiQuJian} />
-                                </CellFooter>
-                            </FormCell>
-                            <FormCell radio>
-                                <CellBody>11:00-12:00</CellBody>
-                                <CellFooter>
-                                    <Radio name="radio1" value="11:00-12:00" onClick={this.handleChangeBanShiQuJian} />
-                                </CellFooter>
-                            </FormCell>
-                            <FormCell radio>
-                                <CellBody>14:00-15:00</CellBody>
-                                <CellFooter>
-                                    <Radio name="radio1" value="14:00-15:00" onClick={this.handleChangeBanShiQuJian} />
-                                </CellFooter>
-                            </FormCell>
-                            <FormCell radio>
-                                <CellBody>15:00-16:00</CellBody>
-                                <CellFooter>
-                                    <Radio name="radio1" value="15:00-16:00" onClick={this.handleChangeBanShiQuJian} />
-                                </CellFooter>
-                            </FormCell>
-                            <FormCell radio>
-                                <CellBody>16:00-17:30</CellBody>
-                                <CellFooter>
-                                    <Radio name="radio1" value="16:00-17:30" onClick={this.handleChangeBanShiQuJian} />
-                                </CellFooter>
-                            </FormCell>
-                        </Form>
+                        <FormCell>
+                            <CellHeader>
+                                <Label>办事区间：</Label>
+                            </CellHeader>
+                            <CellBody>
+                                <Label>{this.state.办事区间}</Label>
+                            </CellBody>
+                        </FormCell>
                     </Form>
                     <CellsTips>微信预约系统</CellsTips>
                     <FormCell warn>
                         <p>{this.state.短信提示}</p>
                     </FormCell>
                     <ButtonArea>
-                        <Button
+                        <Button type="warn"
                             onClick={e => {
                                 let self = this
                                 var myState = {
+                                    oid:self.state.oid,
                                     姓名: self.state.姓名,
                                     手机号: self.state.手机号,
                                     验证码: self.state.验证码,
@@ -196,7 +137,7 @@ class YuYueBuMen extends React.Component {
                                     办事日期: self.state.办事日期,
                                     办事区间: self.state.办事区间,
                                 }
-                                axios.get('https://wx.wuminmin.top/dzzwzx/submit_ban_shi', {
+                                axios.get('https://wx.wuminmin.top/dzzwzx/submit_qu_xiao_ban_shi', {
                                     params: {
                                         "myState": myState,
                                     }
@@ -206,7 +147,11 @@ class YuYueBuMen extends React.Component {
                                             短信提示: response.data
                                         });
                                         console.log(response)
-                                        window.setTimeout(e => self.setState({ 短信提示: '' }), 3000)
+                                        if(response.data === '取消预约成功'){
+                                            window.location = 'https://wx.wuminmin.top/dzzwzx/yy'
+                                        }else{
+                                            window.setTimeout(e => self.setState({ 短信提示: '' }), 3000)
+                                        }
 
                                     })
                                     .catch(function (error) {
@@ -214,7 +159,7 @@ class YuYueBuMen extends React.Component {
                                     });
                             }
                             }>
-                            OK
+                            取消办事
                         </Button>
                     </ButtonArea>
                 </Page>
@@ -222,4 +167,4 @@ class YuYueBuMen extends React.Component {
         )
     }
 }
-export default YuYueBuMen
+export default YuYueQuXiao

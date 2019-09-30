@@ -22,7 +22,9 @@ class IconBox extends Component {
         console.log(this.props.item.value)
         console.log(this.props.item.label)
         console.log(this.props.item.info['txt'])
-        window.alert(this.props.item.info['txt'])
+        // window.alert(this.props.item.info['txt'])
+        window.location = this.props.item.info['txt']
+        // window.location = 'http://www.dongzhi.gov.cn/xxgkbranch/?type=mulu'
     }
 
     //接收父组件传递过来的item
