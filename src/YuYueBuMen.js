@@ -206,7 +206,11 @@ class YuYueBuMen extends React.Component {
                                             短信提示: response.data
                                         });
                                         console.log(response)
-                                        window.setTimeout(e => self.setState({ 短信提示: '' }), 3000)
+                                        if(response.data === '更新预约成功' || response.data === '预约成功'){
+                                            window.location = 'https://wx.wuminmin.top/dzzwzx/yy'
+                                        }else{
+                                            window.setTimeout(e => self.setState({ 短信提示: '' }), 3000)
+                                        }
 
                                     })
                                     .catch(function (error) {
