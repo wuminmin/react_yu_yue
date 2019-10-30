@@ -75,6 +75,41 @@ class TouPiao extends React.Component {
             部门编号: 部门编号,
             部门名称: 部门名称,
         });
+        let self = this;
+        var myState = {
+            姓名: self.state.姓名,
+            手机号: self.state.手机号,
+            验证码: self.state.验证码,
+            身份证号码: self.state.身份证号码,
+            短信提示: self.state.短信提示,
+            access_token: access_token,
+            refresh_token: refresh_token,
+            部门编号: self.state.部门编号,
+            部门名称: self.state.部门名称,
+            办事内容: self.state.办事内容,
+            办事日期: self.state.办事日期,
+            办事区间: self.state.办事区间,
+        }
+        axios.get('https://wx.wuminmin.top/tou_piao/submit_ban_shi', {
+                                    params: {
+                                        "myState": myState,
+                                    }
+                                })
+                                    .then(function (response) {
+                                        self.setState({
+                                            短信提示: response.data
+                                        });
+                                        console.log(response)
+                                        if (response.data === '用户未注册' || response.data === '用户未注册') {
+                                            window.location = 'https://wx.wuminmin.top/tou_piao/dl'
+                                        } else {
+                                            // window.setTimeout(e => self.setState({ 短信提示: '' }), 3000)
+                                        }
+
+                                    })
+                                    .catch(function (error) {
+                                        console.log(error);
+                                    });
     }
     handleChangeBanShiNeiRong = (e) => {
         console.log('e.target.value', e.target.value)
