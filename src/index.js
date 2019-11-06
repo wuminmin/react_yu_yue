@@ -16,6 +16,7 @@ import ZhiNanBanShi from './ZhiNanBanShi'
 import YuYueQuXiao from './YuYueQuXiao'
 import TouPiao from './TouPiao'
 import YuYueXuZhi from './YuYueXuZhi'
+import YuYueLieBiao from './YuYueLieBiao'
 
 var myOtherUrl =  encodeURIComponent("https://oa.wuminmin.top/a/");
 
@@ -37,6 +38,7 @@ const routing = (
       <Route path="/yuyue_qu_xiao" component={YuYueQuXiao} />
       <Route path="/tou_piao" component={TouPiao} />
       <Route path="/yuyuexuzhi" component={YuYueXuZhi} />
+      <Route path="/yuyueliebiao" component={YuYueLieBiao} />
     </div>
   </Router>
 )

@@ -133,7 +133,7 @@ class TouPiao extends React.Component {
                     <CellsTitle>请投票，选出你喜欢的样式</CellsTitle>
                     <Form>
                         <FormCell>
-                            <Zmage src={'https://wx.wuminmin.top/tou_piao/image?id=1'} alt="样式1" style={{ width: '100%', display: 'block' }} />
+                            <Zmage src={'https://wx.wuminmin.top/wxyl/image?id=15'} alt="样式1" style={{ width: '100%', display: 'block' }} />
                         </FormCell>
                         <FormCell>
                             <Zmage src={'https://wx.wuminmin.top/tou_piao/image?id=2'} alt="样式2" style={{ width: '100%', display: 'block' }} />

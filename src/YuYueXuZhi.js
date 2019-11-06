@@ -89,10 +89,8 @@ class YuYueXuZhi extends React.Component {
                     <p>5.<span class="special red">网上预约24小时开放，</span>实行“预约优先”的原则。</p>
                     <p>欢迎广大群众多提宝贵意见和建议。&nbsp;</p>
                     <p class="consult-tel"><span>咨询电话：</span>0566-3</p>
-                    <Button href={'https://oa.wuminmin.top/yuyue?refresh_token=' + this.state.refresh_token + '&access_token=' + this.state.access_token + '&手机号=' + this.state.手机号 + '&姓名=' + this.state.姓名 + '&身份证号码=' + this.state.身份证号码 }
-                    >
-                        下一步
-                        </Button>
+                    <Button href={'https://oa.wuminmin.top/yuyueliebiao?refresh_token=' + this.state.refresh_token + '&access_token=' + this.state.access_token + '&手机号=' + this.state.手机号 + '&姓名=' + this.state.姓名 + '&身份证号码=' + this.state.身份证号码 }
+                    >下一步 </Button>
                 </Page>
             </div>
         )
