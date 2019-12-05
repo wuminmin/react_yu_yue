@@ -4,9 +4,39 @@ import 'weui';
 import 'react-weui/build/packages/react-weui.css';
 import Page from './page';
 import iconSrc from './favicon.ico';
-import { Button, Grids, Cell, CellHeader, Badge, CellBody, CellsTitle, Icon, PreviewHeader, PreviewFooter, PreviewBody, PreviewItem, PreviewButton } from 'react-weui';
+import {
+    Button,
+    Panel,
+    PanelHeader,
+    PanelBody,
+    PanelFooter,
+    MediaBox,
+    MediaBoxHeader,
+    MediaBoxBody,
+    MediaBoxTitle,
+    MediaBoxDescription,
+    MediaBoxInfo,
+    MediaBoxInfoMeta,
+    ButtonArea,
+    CellsTitle,
+    CellsTips,
+    Cell,
+    CellHeader,
+    CellBody,
+    CellFooter,
+    Form,
+    FormCell,
+    TextArea
+} from 'react-weui';
 
-export default class YuYueXuZhi extends React.Component {
+const CellMore = () => (
+    <Cell access link>
+        <CellBody>更多互动</CellBody>
+        <CellFooter />
+    </Cell>
+)
+
+export default class HuDongJiaoLiu extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -79,18 +109,41 @@ export default class YuYueXuZhi extends React.Component {
     render() {
         return (
             <div>
+
                 <Page>
-                    <Button type="default">办事预约须知</Button>
-                    <p>为解决群众现场排队取号及等待办理时间过长问题，节省群众的办件时间，我中心已开通网上预约服务，请您认真阅读预约须知。</p>
-                    <p>1、本预约须知仅适用于东至县网上办事大厅和“东至政务”公众号。</p>
-                    <p>2.网上预约实行实名制注册，务必根据注册提示提供个人或法人真实有效的实名认证信息。</p>
-                    <p>3.预约成功后请务必在预约时间段内，携带有效身份证件到东至县政务大厅自助取号。</p>
-                    <p>4.<span class="special red">预约取消、预约未取号均视为爽约。</span>一个月内同一个身份证号码累计出现<span class="special red">2次爽约</span>，一年内<span class="special red">累计爽约3次</span>，将被纳入黑名单，无法再进行网上预约。</p>
-                    <p>5.<span class="special red">网上预约24小时开放，</span>实行“预约优先”的原则。</p>
-                    <p>欢迎广大群众多提宝贵意见和建议。&nbsp;</p>
-                    <p class="consult-tel"><span>咨询电话：</span>0566-3</p>
-                    <Button href={'https://oa.wuminmin.top/yuyueliebiao?refresh_token=' + this.state.refresh_token + '&access_token=' + this.state.access_token + '&手机号=' + this.state.手机号 + '&姓名=' + this.state.姓名 + '&身份证号码=' + this.state.身份证号码 }
-                    >下一步 </Button>
+                    <Panel>
+                        <PanelHeader>
+                            互动交流
+                    </PanelHeader>
+                        <PanelBody>
+                            <MediaBox type="text">
+                                <MediaBoxTitle>张三</MediaBoxTitle>
+                                <MediaBoxDescription>
+                                    交通罚款在哪里交？
+                            </MediaBoxDescription>
+                            </MediaBox>
+                            <MediaBox type="text">
+                                <MediaBoxTitle>东至政务</MediaBoxTitle>
+                                <MediaBoxDescription>
+                                可以在各大银行办理
+                            </MediaBoxDescription>
+                            </MediaBox>
+                        </PanelBody>
+                        <PanelFooter href="javascript:void(0);">
+                            <CellMore />
+                        </PanelFooter>
+                    </Panel>
+
+                    <CellsTitle>输入框：</CellsTitle>
+                    <Form>
+                        <FormCell>
+                            <CellBody>
+                                <TextArea placeholder="输入评论" rows="3" maxlength="200"></TextArea>
+                            </CellBody>
+                        </FormCell>
+                    </Form>
+                    <Button 
+                    >提交 </Button>
                 </Page>
             </div>
         )
