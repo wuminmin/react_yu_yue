@@ -1,3 +1,12 @@
+全局安装cross-env：
+npm install cross-env -g
+修改package.json:
+"scripts": {
+    "start": "cross-env PORT=5000 react-scripts start",
+    //...
+}
+
+
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
 ## Available Scripts
