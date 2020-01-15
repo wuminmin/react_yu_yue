@@ -1,26 +1,27 @@
-import React from 'react'
-import ReactDOM from 'react-dom'
-import './index.css'
-import { Route, Link, BrowserRouter as Router } from 'react-router-dom'
-import App from './App'
-import SimpleList from './List'
+import React from 'react';
+import ReactDOM from 'react-dom';
+import './index.css';
+import { Route, Link, BrowserRouter as Router } from 'react-router-dom';
+import App from './App';
+import SimpleList from './List';
 // import Contact from './contact'
-import MyCamare from './MyCamare'
-import MyYunZhuJi from './MyYunZhuJi'
-import Zhuce from './Zhuce'
-import UserInfo from './UserInfo'
-import YuYue from './YuYue'
-import YuYueBuMen from './YuYueBuMen'
-import ZhiNan from './ZhiNan'
-import ZhiNanBanShi from './ZhiNanBanShi'
-import YuYueQuXiao from './YuYueQuXiao'
-import TouPiao from './TouPiao'
-import YuYueXuZhi from './YuYueXuZhi'
-import YuYueLieBiao from './YuYueLieBiao'
-import HuDongJiaoLiu from './HuDongJiaoLiu'
-import HudongJiaoLiuNeiRong from './HudongJiaoLiuNeiRong'
-import TieTa from './TieTa'
-import TieTaZhuChe from './TieTaZhuChe'
+import MyCamare from './MyCamare';
+import MyYunZhuJi from './MyYunZhuJi';
+import Zhuce from './Zhuce';
+import UserInfo from './UserInfo';
+import YuYue from './YuYue';
+import YuYueBuMen from './YuYueBuMen';
+import ZhiNan from './ZhiNan';
+import ZhiNanBanShi from './ZhiNanBanShi';
+import YuYueQuXiao from './YuYueQuXiao';
+import TouPiao from './TouPiao';
+import YuYueXuZhi from './YuYueXuZhi';
+import YuYueLieBiao from './YuYueLieBiao';
+import HuDongJiaoLiu from './HuDongJiaoLiu';
+import HudongJiaoLiuNeiRong from './HudongJiaoLiuNeiRong';
+import TieTa from './TieTa';
+import TieTaZhuChe from './TieTaZhuChe';
+import DingCanManage from  './DingCanManage';
 var myOtherUrl =  encodeURIComponent("https://oa.wuminmin.top/a/");
 
 const routing = (
@@ -46,6 +47,7 @@ const routing = (
       <Route path="/hudongjiaoliuneirong" component={HudongJiaoLiuNeiRong} />
       <Route path="/tieta" component={TieTa} />
       <Route path="/tietazhuche" component={TieTaZhuChe} />
+      <Route path="/dingCanManage" component={DingCanManage}/>
     </div>
   </Router>
 )
