@@ -1,18 +1,14 @@
 import React, { Component } from 'react';
 import axios from 'axios';
 import XLSX from 'xlsx';
-
-// import { make_cols } from './MakeColumns';
-// import { SheetJSFT } from './types';
+import Qs from 'qs';
+import moment from 'moment';
 import AppGlobal from './AppGlobal';
-// import CommonMethod from './commonMethod';
-// import emitter from "./ev";
 
 const SheetJSFT = [
     "xlsx", "xlsb", "xlsm", "xls", "xml", "csv", "txt", "ods", "fods", "uos", "sylk", "dif", "dbf", "prn", "qpw", "123", "wb*", "wq*", "html", "htm"
 ].map(function (x) { return "." + x; }).join(",");
 
-// import XLSX from 'xlsx';
 /* generate an array of column objects */
 const make_cols = refstr => {
     let o = [], C = XLSX.utils.decode_range(refstr).e.c + 1;
@@ -24,6 +20,10 @@ class ExcelReader extends Component {
     constructor(props) {
         super(props);
         this.state = {
+            access_token:this.props.access_token,
+            myTips: '',
+            myTips2:'',
+            flag:'',
             ji_li_ming_cheng: '',
             res: '',
             file: {},
@@ -71,50 +71,33 @@ class ExcelReader extends Component {
             const data = XLSX.utils.sheet_to_json(ws);
             /* Update state */
             this.setState({ data: data, cols: make_cols(ws['!ref']) }, () => {
-
                 let self = this;
-                var myState = {
-
-                }
-                axios.get(AppGlobal.url.dingCanUrl, {
-                    params: {
-                        "myState": myState,
-                    }
+                let flag = moment().format('MMMM Do YYYY, h:mm:ss a');
+                self.setState({
+                    flag:flag
                 })
-                    .then(function (response) {
-                        self.setState({
-                            短信提示: response.data
-                        });
-                        console.log(response)
-                        if (response.data === '用户未注册' || response.data === '用户未注册') {
-                            window.location = 'https://wx.wuminmin.top/tou_piao/dl'
-                        } else {
-                            // window.setTimeout(e => self.setState({ 短信提示: '' }), 3000)
-                        }
-
-                    })
+                var mydata = {
+                    "access_token":this.props.access_token,
+                    "action": '上传',
+                    "flag": flag,
+                    "excel": JSON.stringify(self.state.data, null, 2)
+                }
+                axios({
+                    headers: {
+                        'Content-Type': 'application/x-www-form-urlencoded'
+                    },
+                    method: 'post',
+                    url: AppGlobal.url.dingCanUrl,
+                    data: Qs.stringify(mydata)
+                }).then(function (response) {
+                    console.log(response)
+                    self.setState({
+                        myTips: response.data
+                    });
+                })
                     .catch(function (error) {
                         console.log(error);
                     });
-
-                //     let self = this;
-                //     CommonMethod.sendData({
-                //       url: AppGlobal.url.java_url,
-                //       code: 'chz566JiLiZhuShouService',
-                //       method: 'shang_chuang_excel',
-                //       isLogin: false,
-                //       message: { "ji_li_ming_cheng": self.state.ji_li_ming_cheng, "jlzs_excel": JSON.stringify(self.state.data, null, 2) },
-                //       successFunc: function (response) {
-                //         self.setState({
-                //           res: response.res,
-                //         })
-                //       },
-                //       errorFunc: function (e) {
-                //         console.log(e);
-                //       },
-                //       encode: true
-                //     });
-                //     // console.log(JSON.stringify(this.state.data, null, 2));
             });
         };
 
@@ -128,44 +111,78 @@ class ExcelReader extends Component {
     render() {
         return (
             <div>
-
                 <input type="file" className="form-control" id="file" accept={SheetJSFT} onChange={this.handleChange} />
-
                 <input type='submit'
                     value="上传文件"
                     onClick={this.handleFile} />
+                <h1>{this.state.myTips}</h1>
+                <button onClick={()=>{
+                    let self = this;
+                    var mydata = {
+                        "access_token":this.props.access_token,
+                        "action": '查询结果',
+                        "flag": self.state.flag,
+                        "excel": []
+                    }
+                    axios({
+                        headers: {
+                            'Content-Type': 'application/x-www-form-urlencoded'
+                        },
+                        method: 'post',
+                        url: AppGlobal.url.dingCanUrl,
+                        data: Qs.stringify(mydata)
+                    }).then(function (response) {
+                        console.log(response)
+                        self.setState({
+                            myTips2: response.data
+                        });
+                    })
+                        .catch(function (error) {
+                            console.log(error);
+                        });
 
-                {/* <Row>
-                    <Col span={6}>
-                        <label htmlFor="file">上传excel表格</label>
-                    </Col>
-                    <Col span={6}>
-                        </Col>
-                    <Col span={6}>
-                   
-                    </Col>
-                    <Col span={6}>
-                        <label htmlFor="file">{this.state.res}</label>
-                    </Col>
-                </Row> */}
-                {/* <Row>
-          <Col span={24}>
-           <Button>确认</Button>
-          </Col>
- 
-        </Row> */}
+                }}>查询结果</button>
+                <h1>{this.state.myTips2}</h1>
             </div>
         )
     }
 }
 
 class DingCanManage extends React.Component {
-
+    constructor(props) {
+        super(props);
+        var moment = require('moment');
+        this.state = {
+            姓名: '',
+            手机号: '',
+            身份证号码: '',
+            短信提示: '',
+            access_token: '',
+            refresh_token: '',
+        };
+    }
+    componentDidMount() {
+        console.log(this.props)
+        const search = this.props.location.search;
+        const params = new URLSearchParams(search);
+        const access_token = params.get('access_token');
+        const refresh_token = params.get('refresh_token');
+        const 手机号 = params.get('手机号');
+        const 姓名 = params.get('姓名');
+        const 身份证号码 = params.get('身份证号码');
+        console.log(access_token, refresh_token)
+        this.setState({
+            access_token: access_token,
+            refresh_token: refresh_token,
+            手机号: 手机号,
+            姓名: 姓名,
+            身份证号码: 身份证号码,
+        });
+    }
     render() {
         return (
             <div>
-
-                <ExcelReader></ExcelReader>
+                <ExcelReader access_token={new URLSearchParams(this.props.location.search).get('access_token')}></ExcelReader>
             </div>
         )
     }
