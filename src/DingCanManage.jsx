@@ -187,5 +187,4 @@ class DingCanManage extends React.Component {
         )
     }
 }
-
 export default DingCanManage;

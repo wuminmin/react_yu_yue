@@ -22,6 +22,7 @@ import HudongJiaoLiuNeiRong from './HudongJiaoLiuNeiRong';
 import TieTa from './TieTa';
 import TieTaZhuChe from './TieTaZhuChe';
 import DingCanManage from  './DingCanManage';
+import QingYangKouZhaoYuYue from './QingYangKouZhaoYuYue';
 var myOtherUrl =  encodeURIComponent("https://oa.wuminmin.top/a/");
 
 const routing = (
@@ -48,6 +49,7 @@ const routing = (
       <Route path="/tieta" component={TieTa} />
       <Route path="/tietazhuche" component={TieTaZhuChe} />
       <Route path="/dingCanManage" component={DingCanManage}/>
+      <Route path="/qingYangKouZhaoYuYue" component={QingYangKouZhaoYuYue}/>
     </div>
   </Router>
 )

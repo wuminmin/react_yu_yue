@@ -161,7 +161,7 @@ export default class TieTaZhuChe extends React.Component {
                     </CellBody>
                 </FormCell>
             </Form>
-            <CellsTips>铁塔采集系统</CellsTips>
+            <CellsTips>实名注册</CellsTips>
             <Button  onClick={this.zhuCe}>注册</Button>
       </div>
     )

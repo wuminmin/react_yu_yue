@@ -114,9 +114,6 @@ export default class TieTa extends React.Component {
                             </CellFooter>
                         </FormCell>
                     </Form>
-
-
-
                     <CellsTitle>工参</CellsTitle>
                     <Form>
                         <FormCell>
