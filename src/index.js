@@ -23,6 +23,8 @@ import TieTa from './TieTa';
 import TieTaZhuChe from './TieTaZhuChe';
 import DingCanManage from  './DingCanManage';
 import QingYangKouZhaoYuYue from './QingYangKouZhaoYuYue';
+import ShiShengTiSu from './ShiShengTiSu';
+import ShiShengXinZhuang from './ShiShengXinZhuang';
 var myOtherUrl =  encodeURIComponent("https://oa.wuminmin.top/a/");
 
 const routing = (
@@ -50,6 +52,8 @@ const routing = (
       <Route path="/tietazhuche" component={TieTaZhuChe} />
       <Route path="/dingCanManage" component={DingCanManage}/>
       <Route path="/qingYangKouZhaoYuYue" component={QingYangKouZhaoYuYue}/>
+      <Route path="/shi_sheng_ti_su" component={ShiShengTiSu}/>
+      <Route path="/shi_sheng_xin_zhuang" component={ShiShengXinZhuang}/>
     </div>
   </Router>
 )

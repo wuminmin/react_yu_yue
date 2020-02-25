@@ -70,7 +70,7 @@ export default class QingYangKouZhaoYuYue extends React.Component {
                         </FormCell>
                     </Form>
                    
-                    <CellsTitle>类型</CellsTitle>
+                    <CellsTitle>口罩类型</CellsTitle>
                     <Form radio >
                         <FormCell radio>
                             <CellBody>N95口罩1个</CellBody>
@@ -79,7 +79,7 @@ export default class QingYangKouZhaoYuYue extends React.Component {
                                     onChange={(e) => {
                                         console.log(e.currentTarget.value);
                                         this.setState({
-                                            N95口罩1个: e.currentTarget.value
+                                            口罩类型: e.currentTarget.value
                                         })
                                     }}
                                 />
@@ -92,7 +92,7 @@ export default class QingYangKouZhaoYuYue extends React.Component {
                                     onChange={(e) => {
                                         console.log(e.currentTarget.value);
                                         this.setState({
-                                            普通口罩1个: e.currentTarget.value
+                                            口罩类型: e.currentTarget.value
                                         })
                                     }}
                                 />
@@ -126,9 +126,40 @@ export default class QingYangKouZhaoYuYue extends React.Component {
                                     });
                             }
                             }>
-                            OK
+                            预约
                         </Button>
                     </ButtonArea>
+
+
+                    <FormCell >
+                        <p>我的预约</p>
+                    </FormCell>
+                    <ButtonArea>
+                        <Button
+                            onClick={e => {
+                                let self = this;
+                                console.log(self.state);
+                                axios.get('https://wx.wuminmin.top/tieta/querey_result', {
+                                    params: {
+                                        "myState": self.state,
+                                    }
+                                })
+                                    .then(function (response) {
+                                        console.log(response)
+                                        self.setState({
+                                            短信提示: response.data
+                                        });
+                                        window.setTimeout(e => self.setState({ 短信提示: '' }), 3000)
+                                    })
+                                    .catch(function (error) {
+                                        console.log(error);
+                                    });
+                            }
+                            }>
+                            查询我的预约
+                        </Button>
+                    </ButtonArea>
+
                 </Page>
             </div>
         )

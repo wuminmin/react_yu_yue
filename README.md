@@ -1,3 +1,10 @@
+serve -s build -l 5000
+
+https://wx.wuminmin.top/tieta/dl?myurl=shi_sheng_ti_su&mykey1=1&mykey2=2&mykey3=3
+
+https://wx.wuminmin.top/tieta/dl?myurl=shi_sheng_xin_zhuang&mykey1=1&mykey2=2&mykey3=3
+
+
 全局安装cross-env：
 npm install cross-env -g
 修改package.json:
