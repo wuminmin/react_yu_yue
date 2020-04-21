@@ -4,6 +4,23 @@ https://wx.wuminmin.top/tieta/dl?myurl=shi_sheng_ti_su&mykey1=1&mykey2=2&mykey3=
 
 https://wx.wuminmin.top/tieta/dl?myurl=shi_sheng_xin_zhuang&mykey1=1&mykey2=2&mykey3=3
 
+在docker启动
+1、创建容器
+docker run -ti -p 18007:8080 --name vue_canteen_manage -v $(pwd):/workspace node bash
+
+2、进入容器
+docker exec -it vue_canteen_manage /bin/bash
+
+3、进入工作目录 workspace
+cd workspace
+
+4、启动后台
+npx serve -s dist -l 8080
+
+5、然后直接关闭ssh客户端，实测docker后台不会挂掉
+
+
+
 
 全局安装cross-env：
 npm install cross-env -g
