@@ -6,7 +6,7 @@ https://wx.wuminmin.top/tieta/dl?myurl=shi_sheng_xin_zhuang&mykey1=1&mykey2=2&my
 
 在docker启动
 1、创建容器
-docker run -ti -p 18007:8080 --name vue_canteen_manage -v $(pwd):/workspace node bash
+docker run -ti -p 50001:80 --name vue_canteen_manage -v $(pwd):/workspace node bash
 
 2、进入容器
 docker exec -it vue_canteen_manage /bin/bash
@@ -18,7 +18,7 @@ cd workspace
 npm install --registry=https://registry.npm.taobao.org
 
 4、启动后台
-npx serve -s dist -l 8080
+npx serve -s dist -l 80
 
 5、然后直接关闭ssh客户端，实测docker后台不会挂掉
 
